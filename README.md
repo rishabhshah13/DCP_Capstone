@@ -23,4 +23,4 @@ Implement advanced filtering system and scoring system which could be directly u
 ![Alt text](<images/data>)
 ### Neural network classifier
 - Our final model to put all things together and get a score of each company  based on all filtered features from the dataset.
-### Result
+## Result
