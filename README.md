@@ -20,7 +20,7 @@ Duke Capital Partners (DCP) is initiating a project to develop an internal sourc
 	2 = worth our time!
 )
 - Preview of training dataset we used:
-![Alt text](<Screenshot 2024-04-04 at 9.54.03 PM.png>)
+![Alt text](<images/data.png>)
 ### Nerual network classifier
 - Our final model to put all things together and get a score of each company  based on all filtered features from the dataset.
 ### Result
