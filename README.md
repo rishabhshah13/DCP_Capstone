@@ -1,5 +1,5 @@
 # DCP_Capstone
-![Alt text](<DCP>)
+![Alt text](<images/DCP>)
 ## Overview
 Duke Capital Partners (DCP) is initiating a project to develop an internal sourcing tool aimed at identifying Duke University affiliated startup companies seeking funding, which leverages the power of the Duke network to support the university’s entrepreneurial ecosystem.
 ## Key Feature
