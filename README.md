@@ -3,7 +3,7 @@
 ## Overview
 Duke Capital Partners (DCP) is initiating a project to develop an internal sourcing tool aimed at identifying Duke University affiliated startup companies seeking funding, which leverages the power of the Duke network to support the university’s entrepreneurial ecosystem.
 ## Key Feature
--Implement advanced filtering system and scoring system which could be directly used upon the raw dataset, enable users (DCP members) to search for Duke-related companies they are interested in (including startups) based on specific criteria such as Duke afiliation, industry, company size, company description etc.
+Implement advanced filtering system and scoring system which could be directly used upon the raw dataset, enable users (DCP members) to search for Duke-related companies they are interested in (including startups) based on specific criteria such as Duke afiliation, industry, company size, company description etc.
 - Filtering system: The goal of this system is to filter out irrelevant features from our raw datasets, and only keep the features that DCP members care about.
 - Scoring system: The goal of this system is to score each company on the list based on its features, in order for DCP members to find the companies they are interested in.
 ## Data Source
