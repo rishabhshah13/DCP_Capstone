@@ -36,8 +36,6 @@ def load_model(uploaded_model):
         model = NeuralNetwork()
         model.load_state_dict(torch.load(uploaded_model))
         model.eval()
-        st.text("Model loaded successfully!")
-        print("Model Loaded")
         return model        
     else:
         st.text("No model file uploaded")
@@ -100,7 +98,7 @@ def load_and_infer(model,df):
 
 def main():
     # Title of the web app
-    st.title('CSV Viewer')
+    st.title('Duke Capital Partners')
 
     # File uploader widget to upload CSV file
     uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
