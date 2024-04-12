@@ -14,7 +14,7 @@ from torch import cuda
 from torch.utils.data import Dataset
 from transformers import TrainingArguments, Trainer
 import torch
-from google.colab import drive
+# from google.colab import drive
 
 
 

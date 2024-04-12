@@ -101,3 +101,5 @@ if __name__ == "__main__":
 
     # Call the heuristic_sort function
     test = heuristic_sort(csv_file)
+    # print(test)
+    print("DONE")
