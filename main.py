@@ -1,6 +1,6 @@
-from HeuristicFiltering.Basic_Heuristic_Filtering import heuristic_sort
-from CompanyDesClassifier.des_pred import des_classifier
-from NeuralNetworkClassifier.NeuralNetworkClassifier import load_and_infer
+from Scripts.Basic_Heuristic_Filtering import heuristic_sort
+from Scripts.des_pred import des_classifier
+from Scripts.NeuralNetworkClassifier import load_and_infer
 import pandas as pd
 
 if __name__ == "__main__":
@@ -16,9 +16,8 @@ if __name__ == "__main__":
     # Call the heuristic_sort function
     df = heuristic_sort(csv_file)
 
+    # Classify company descriptions
     df = des_classifier(df)
     
+    # Perform inference using neural network classifier
     preds_df = load_and_infer(df)
-
-
-cls
