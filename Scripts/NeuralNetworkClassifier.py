@@ -62,7 +62,8 @@ def load_and_infer(df):
 
     for column in hot_encode_columns:
         # Load the encoder
-        encoder_filename = f'NeuralNetworkClassifier/encoders/{column}_encoder.pkl'  # Assuming the encoders are saved in a folder named 'encoders'
+
+        encoder_filename = f'encoders/{column}_encoder.pkl'  # Assuming the encoders are saved in a folder named 'encoders'
         with open(encoder_filename, 'rb') as file:
             encoder = pickle.load(file)
         
@@ -102,7 +103,7 @@ def load_and_infer(df):
 
 
 if __name__ == "__main__":
-    csv_file_name = 'Data/final_df.csv'
+    csv_file_name = 'Data/final_df.csv'  #Data\all_labelled_data_for_training.csv
     df = pd.read_csv(csv_file_name, dtype={'Company Size': str})
 
     preds_df = load_and_infer(df)
