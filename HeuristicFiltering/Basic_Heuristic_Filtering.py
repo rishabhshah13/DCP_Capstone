@@ -1,5 +1,4 @@
 import pandas as pd
-from datetime import datetime
 
 
 def heuristic_sort(csv_file):

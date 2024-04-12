@@ -1,44 +1,44 @@
-
-from transformers import DistilBertTokenizer
-from transformers import TFDistilBertForSequenceClassification
 from transformers import BertForSequenceClassification, BertTokenizerFast
 import pandas as pd
+import torch
+from tqdm import tqdm
 
 
-def des_classifier(df, model_path):
+def des_classifier(df, model_path="DCPduke/Des-classification-model", batch_size=8):
+    # Check if GPU is available
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    def predict(text):
-        model = BertForSequenceClassification.from_pretrained(model_path)
-        tokenizer= BertTokenizerFast.from_pretrained(model_path)
+    # Load the model and tokenizer
+    model = BertForSequenceClassification.from_pretrained(model_path).to(device)
+    tokenizer = BertTokenizerFast.from_pretrained(model_path)
 
-        inputs = tokenizer(text, padding=True, truncation=True, max_length=512, return_tensors="pt").to("cuda")
+    def predict_batch(texts):
+        inputs = tokenizer(texts, padding=True, truncation=True, max_length=512, return_tensors="pt")
 
-        # Move the tensors to the same device as the model
-        inputs = inputs.to("cuda")
-
-        # Ensure the model is in evaluation mode and on the correct device
         model.eval()
-        model.to("cuda")
 
-        # Get model output (logits)
-        outputs = model(**inputs)
+        inputs = {key: value.to(device) for key, value in inputs.items()}
 
-        probs = outputs[0].softmax(1)
+        with torch.no_grad():
+            outputs = model(**inputs)
 
-        # Get the index of the class with the highest probability
-        # argmax() finds the index of the maximum value in the tensor along a specified dimension.
-        # By default, if no dimension is specified, it returns the index of the maximum value in the flattened tensor.
-        pred_label_idx = probs.argmax()
+        probs = outputs.logits.softmax(dim=1)
 
-        # map the predicted class index to the actual class label
-        # Since pred_label_idx is a tensor containing a single value (the predicted class index),
-        # the .item() method is used to extract the value as a scalar
-        pred_label = model.config.id2label[pred_label_idx.item()]
+        pred_label_idxs = probs.argmax(dim=1)
 
-        return pred_label
+        pred_labels = [model.config.id2label[idx.item()] for idx in pred_label_idxs]
 
-    df['Company Li Description with null'] = df['Company Li Description'].copy()
-    df['Company Li Description with null'] = df['Company Li Description with null'].fillna('null')
-    df['Company Des Relevant Score'] = df['Company Li Description with null'].apply(predict)
+        return pred_labels
+
+    texts = df['Company Li Description'].fillna('null').tolist()
+
+    batches = [texts[i:i + batch_size] for i in range(0, len(texts), batch_size)]
+
+    predictions = []
+    for batch in tqdm(batches, desc="Processing batches", leave=False):
+        batch_predictions = predict_batch(batch)
+        predictions.extend(batch_predictions)
+
+    df['Company Des Relevant Score'] = predictions
+
     return df
-

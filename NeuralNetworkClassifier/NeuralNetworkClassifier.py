@@ -1,14 +1,27 @@
-import pandas as pd
-import torch
 import torch.nn as nn
+import datetime
 import numpy as np
+import pickle
+import torch
+import datetime
+import pandas as pd
+
+hot_encode_columns = [
+    'Lead Job Title',
+    'Company Size',
+    'Company Industry',
+    'Company Li Company Type',
+    'Company Location Country Name',
+    'Email Status'
+]
+
 
 def load_and_infer(df):
     # Load saved model
     class NeuralNetwork(nn.Module):
         def __init__(self):
             super(NeuralNetwork, self).__init__()
-            self.layer1 = nn.Linear(X_train_balanced.shape[1], 16)
+            self.layer1 = nn.Linear(11, 16)
             self.layer2 = nn.Linear(16, 16)
             self.layer3 = nn.Linear(16, 16)
             self.layer4 = nn.Linear(16, 16)
@@ -31,7 +44,7 @@ def load_and_infer(df):
             return x
 
     model = NeuralNetwork()
-    model.load_state_dict(torch.load('neural_network_model.pth'))
+    model.load_state_dict(torch.load('NeuralNetworkClassifier/neural_network_model.pth'))
     model.eval()
 
     # Preprocess dataframe
@@ -47,9 +60,21 @@ def load_and_infer(df):
     for column in hot_encode_columns+['Company Followers', 'Company Des Relevant Score']:
         df_encoded[column] = df[column]
 
-    df_encoded = pd.get_dummies(df_encoded, columns=hot_encode_columns)
+    for column in hot_encode_columns:
+        # Load the encoder
+        encoder_filename = f'NeuralNetworkClassifier/encoders/{column}_encoder.pkl'  # Assuming the encoders are saved in a folder named 'encoders'
+        with open(encoder_filename, 'rb') as file:
+            encoder = pickle.load(file)
+        
+        # Encode the column in df_encoded
+        encoded_column = encoder.transform(df_encoded[[column]])
+        
+        # Replace the column in df_encoded with the encoded values
+        df_encoded[column] = encoded_column
 
     df_encoded.fillna(0, inplace=True)
+
+    print(df_encoded.shape)
 
     # Convert dataframe to tensor
     df_numeric = df_encoded.apply(pd.to_numeric, errors='coerce')
@@ -74,3 +99,11 @@ def load_and_infer(df):
     predictions_df = predictions_df.reset_index(drop=True)
     
     return predictions_df
+
+
+if __name__ == "__main__":
+    csv_file_name = 'Data/final_df.csv'
+    df = pd.read_csv(csv_file_name, dtype={'Company Size': str})
+
+    preds_df = load_and_infer(df)
+    print(preds_df)
