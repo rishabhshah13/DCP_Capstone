@@ -10,6 +10,7 @@ def heuristic_sort(csv_file):
     for factor in fill_factors:
         df[factor] = df[factor].fillna(0)
 
+
     # Calculate total months in position
     df['Lead Total Months In Company'] = df['Lead Years In Company'] * 12 + df['Lead Months In Company']
     df['Lead Total Months In Position'] = df['Lead Years In Position'] * 12 + df['Lead Months In Position']
