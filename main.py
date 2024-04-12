@@ -16,6 +16,8 @@ if __name__ == "__main__":
     # Call the heuristic_sort function
     df = heuristic_sort(csv_file)
 
+    # Classify company descriptions
     df = des_classifier(df)
     
+    # Perform inference using neural network classifier
     preds_df = load_and_infer(df)

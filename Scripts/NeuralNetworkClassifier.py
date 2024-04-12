@@ -3,9 +3,9 @@ import datetime
 import numpy as np
 import pickle
 import torch
-import datetime
 import pandas as pd
 
+# List of columns to be one-hot encoded
 hot_encode_columns = [
     'Lead Job Title',
     'Company Size',
@@ -15,12 +15,22 @@ hot_encode_columns = [
     'Email Status'
 ]
 
-
 def load_and_infer(df):
-    # Load saved model
+    """
+    Loads a trained neural network model, preprocesses the input dataframe, performs inference,
+    and returns predictions for each company in the dataframe.
+    
+    Args:
+    df (DataFrame): Input dataframe containing company data.
+    
+    Returns:
+    DataFrame: Predictions dataframe containing company names and predicted relevancy scores.
+    """
+    # Define the neural network model architecture
     class NeuralNetwork(nn.Module):
         def __init__(self):
             super(NeuralNetwork, self).__init__()
+            # Define layers
             self.layer1 = nn.Linear(11, 16)
             self.layer2 = nn.Linear(16, 16)
             self.layer3 = nn.Linear(16, 16)
@@ -33,6 +43,7 @@ def load_and_infer(df):
             self.softmax = nn.Softmax(dim=1)
 
         def forward(self, x):
+            # Define forward pass
             x = self.relu(self.layer1(x))
             x = self.relu(self.layer2(x))
             x = self.relu(self.layer3(x))
@@ -43,6 +54,7 @@ def load_and_infer(df):
             x = self.softmax(self.output_layer(x))
             return x
 
+    # Load the trained model
     model = NeuralNetwork()
     model.load_state_dict(torch.load('NeuralNetworkClassifier/neural_network_model.pth'))
     model.eval()
@@ -50,19 +62,23 @@ def load_and_infer(df):
     # Preprocess dataframe
     df_encoded = pd.DataFrame()
 
+    # Calculate the current year
     current_year = datetime.datetime.now().year
+    
+    # Feature engineering: compute years since company founded
     df_encoded['Years Since Company Founded'] = current_year - df['Company Founded In']
 
+    # Feature engineering: compute total months in position and total months in company
     df_encoded['Total Months In Position'] = df['Lead Years In Position'] * 12 + df['Lead Months In Position']
-
     df_encoded['Total Months In Company'] = df['Lead Years In Company'] * 12 + df['Lead Months In Company']
 
+    # Copy numerical columns and hot encode categorical columns
     for column in hot_encode_columns+['Company Followers', 'Company Des Relevant Score']:
         df_encoded[column] = df[column]
 
+    # Perform one-hot encoding for categorical columns
     for column in hot_encode_columns:
         # Load the encoder
-
         encoder_filename = f'encoders/{column}_encoder.pkl'  # Assuming the encoders are saved in a folder named 'encoders'
         with open(encoder_filename, 'rb') as file:
             encoder = pickle.load(file)
@@ -73,6 +89,7 @@ def load_and_infer(df):
         # Replace the column in df_encoded with the encoded values
         df_encoded[column] = encoded_column
 
+    # Fill missing values with 0
     df_encoded.fillna(0, inplace=True)
 
     print(df_encoded.shape)
@@ -96,7 +113,6 @@ def load_and_infer(df):
 
     # Sort by Predicted_Relevancy
     predictions_df = predictions_df.sort_values(by='Predicted_Relevancy', ascending=False)
-
     predictions_df = predictions_df.reset_index(drop=True)
     
     return predictions_df

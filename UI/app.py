@@ -8,9 +8,18 @@ import pickle
 
 # Function to load model
 def load_model(uploaded_model):
-    if uploaded_model is not None:
+    """
+    Loads a pre-trained neural network model.
 
+    Args:
+    uploaded_model (UploadedFile): Uploaded model file.
+
+    Returns:
+    nn.Module: Loaded neural network model.
+    """
+    if uploaded_model is not None:
         class NeuralNetwork(nn.Module):
+            # Define the neural network architecture
             def __init__(self):
                 super(NeuralNetwork, self).__init__()
                 self.layer1 = nn.Linear(11, 16)
@@ -24,6 +33,7 @@ def load_model(uploaded_model):
                 self.relu = nn.ReLU()
                 self.softmax = nn.Softmax(dim=1)
 
+            # Define the forward pass
             def forward(self, x):
                 x = self.relu(self.layer1(x))
                 x = self.relu(self.layer2(x))
@@ -44,11 +54,17 @@ def load_model(uploaded_model):
         st.text("No model file uploaded")
         return None
 
-
 def load_and_infer(model,df):
-    # Load saved model
-    
+    """
+    Performs inference using the loaded neural network model.
 
+    Args:
+    model (nn.Module): Loaded neural network model.
+    df (DataFrame): Input dataframe containing company data.
+
+    Returns:
+    DataFrame: DataFrame with predicted relevancy scores for each company.
+    """
     # Preprocess dataframe
     df_encoded = pd.DataFrame()
 
@@ -87,8 +103,6 @@ def load_and_infer(model,df):
 
     df_encoded.fillna(0, inplace=True)
 
-    print(df_encoded.shape)
-
     # Convert dataframe to tensor
     df_numeric = df_encoded.apply(pd.to_numeric, errors='coerce')
     df_numeric.dropna(inplace=True)
@@ -113,8 +127,10 @@ def load_and_infer(model,df):
     
     return predictions_df
 
-
 def main():
+    """
+    Main function to run the Streamlit web app.
+    """
     # Title of the web app
     st.title('Duke Capital Partners')
 
