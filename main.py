@@ -21,3 +21,4 @@ if __name__ == "__main__":
     preds_df = load_and_infer(df)
 
 
+cls

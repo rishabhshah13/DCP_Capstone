@@ -8,6 +8,8 @@ def des_classifier(df, model_path="DCPduke/Des-classification-model", batch_size
     # Check if GPU is available
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+    print(f"Using Device: {device}")
+
     # Load the model and tokenizer
     model = BertForSequenceClassification.from_pretrained(model_path).to(device)
     tokenizer = BertTokenizerFast.from_pretrained(model_path)
