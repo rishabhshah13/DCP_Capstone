@@ -17,7 +17,10 @@ if __name__ == "__main__":
     df = heuristic_sort(csv_file)
 
     # Classify company descriptions
-    df = des_classifier(df)
-    
+    #df = des_classifier(df)
+    df = pd.read_csv("Data/final_df.csv")
+
     # Perform inference using neural network classifier
     preds_df = load_and_infer(df)
+
+    print(preds_df)

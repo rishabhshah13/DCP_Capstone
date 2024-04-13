@@ -56,7 +56,7 @@ def load_and_infer(df):
 
     # Load the trained model
     model = NeuralNetwork()
-    model.load_state_dict(torch.load('NeuralNetworkClassifier/neural_network_model.pth'))
+    model.load_state_dict(torch.load('Model/neural_network_model.pth'))
     model.eval()
 
     # Preprocess dataframe
