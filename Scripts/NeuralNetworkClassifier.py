@@ -92,11 +92,11 @@ def load_and_infer(df):
     # Fill missing values with 0
     df_encoded.fillna(0, inplace=True)
 
-    print(df_encoded.shape)
-
-    # Convert dataframe to tensor
+        # Convert dataframe to tensor
     df_numeric = df_encoded.apply(pd.to_numeric, errors='coerce')
     df_numeric.dropna(inplace=True)
+    df_numeric.reset_index(drop=True, inplace=True)  # Reset index after dropping NaN values
+    
     df_array = df_numeric.values.astype(np.float32)
     df_tensor = torch.tensor(df_array)
 
@@ -107,13 +107,16 @@ def load_and_infer(df):
     # Convert probabilities to raw probabilities
     probabilities = output.numpy()
 
+    # Resetting index for df to match df_numeric
+    df.reset_index(drop=True, inplace=True)
+    
     # Create a dataframe with Company Name and Predictions
     company_names = df['Company Name'].iloc[df_numeric.index]
     predictions_df = pd.DataFrame({'Company Name': company_names, 'Predicted_Relevancy': probabilities[:, 1]})
 
     # Sort by Predicted_Relevancy
     predictions_df = predictions_df.sort_values(by='Predicted_Relevancy', ascending=False)
-    predictions_df = predictions_df.reset_index(drop=True)
+    predictions_df.reset_index(drop=True, inplace=True)
     
     return predictions_df
 
