@@ -7,11 +7,11 @@ Implement advanced filtering system and scoring system which could be directly u
 - Filtering system: The goal of this system is to filter out irrelevant features from our raw datasets, and only keep the features that DCP members care about.
 - Scoring system: The goal of this system is to score each company on the list based on its features, in order for DCP members to find the companies they are interested in.
 ## Data Source
-- LinkedIn Sales Navigator (used for the model training)
-- Harmonic AI
+- LinkedIn Sales Navigator (used for all model training)
+- Techstars Jan 2024 Batch data for description classifier fine-tuning
 ## Methodology
 ### Heuristics Model to filter out irrelevant features
-- Algorithmic scoring model with 10 weighted criteria based on LinkedIn company factors
+- Algorithmic scoring model with 5 weighted criteria based on LinkedIn company factors
 - Manually evaluated by DCP team for sorted results aligning with their target companies
 - Mostly used for filtering out unwanted metrics from the classification metric
 ### NLP model quantify company description
@@ -21,6 +21,9 @@ Implement advanced filtering system and scoring system which could be directly u
 )
 - Preview of training dataset we used:
 ![Alt text](<images/data>)
-### Neural network classifier
-- Our final model to put all things together and get a score of each company  based on all filtered features from the dataset.
+### Neural Network classifier
+- Final model takes in augmented LinkedIn data and description classifications for softmax ranking of company relevance
 ## Result
+- Company Description Classifier: 0.602 F1-score on validation set
+- Neural Network Classifier: 0.84 Recall on positive class predictions
+- Streamlit local-hosted UI for simple results pooling
