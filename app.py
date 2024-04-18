@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 import Scripts.NeuralNetworkClassifier as nnc
-
+import Scripts.des_pred as des
 
 def main():
     """
@@ -20,6 +20,9 @@ def main():
     if uploaded_file is not None:
         # Read the CSV file
         df = pd.read_csv(uploaded_file)
+
+        # Add in classifications of company descriptions
+        df = des.des_classifier(df)
 
         # Display the DataFrame
         st.write(df)
