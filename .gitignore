@@ -1,3 +1,5 @@
 venv/*
 appOLD.py
 *\__pycache__
+display_app.py
+some_app.py

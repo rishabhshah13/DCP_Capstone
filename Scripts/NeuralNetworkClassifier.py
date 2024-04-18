@@ -97,7 +97,7 @@ def load_and_infer(model,df):
 
     for column in hot_encode_columns:
         # Load the encoder
-        encoder_filename = f'NeuralNetworkClassifier/encoders/{column}_encoder.pkl'  # Assuming the encoders are saved in a folder named 'encoders'
+        encoder_filename = f'encoders/{column}_encoder.pkl'  # Assuming the encoders are saved in a folder named 'encoders'
         with open(encoder_filename, 'rb') as file:
             encoder = pickle.load(file)
         
@@ -124,7 +124,29 @@ def load_and_infer(model,df):
 
     # Create a dataframe with Company Name and Predictions
     company_names = df['Company Name'].iloc[df_numeric.index]
-    predictions_df = pd.DataFrame({'Company Name': company_names, 'Predicted_Relevancy': probabilities[:, 1]})
+
+    # Create a dataframe with Company Name and Predictions
+    company_names = df['Company Name'].iloc[df_numeric.index]
+
+    # Lead Linkedin Url
+    Lead_Linkedin_Url = df['Lead Linkedin Url'].iloc[df_numeric.index]
+
+    # Lead Full Name
+    Lead_Full_Name = df['Lead Full Name'].iloc[df_numeric.index]
+    
+    # Lead Li Picture Url
+    # Lead_Li_Picture_Url = df['Lead Li Picture Url'].iloc[df_numeric.index]
+    
+    # Email
+    Email = df['Email'].iloc[df_numeric.index]
+
+
+    # predictions_df = pd.DataFrame({'Company Name': company_names, 'Predicted_Relevancy': probabilities[:, 1]})
+
+    predictions_df = pd.DataFrame({'Company Name': company_names, 'Predicted_Relevancy': probabilities[:, 1],
+                                   'Lead Linkedin Url':Lead_Linkedin_Url, 'Lead Full Name':Lead_Full_Name,
+                                   #'Lead Li Picture Url':Lead_Li_Picture_Url, 
+                                   'Email':Email })
 
     # Sort by Predicted_Relevancy
     predictions_df = predictions_df.sort_values(by='Predicted_Relevancy', ascending=False)
