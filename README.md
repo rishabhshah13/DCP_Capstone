@@ -27,3 +27,81 @@ Implement advanced filtering system and scoring system which could be directly u
 - Company Description Classifier: 0.602 F1-score on validation set
 - Neural Network Classifier: 0.84 Recall on positive class predictions
 - Streamlit local-hosted UI for simple results pooling
+
+
+# How to Run
+
+To run this project, follow the steps below:
+
+1. **Create a Python Environment**
+
+   - If you haven't already, create a virtual environment using your preferred method. For example, you can use `virtualenv`:
+
+     ```bash
+     virtualenv venv
+     ```
+
+   - Activate the virtual environment:
+
+     ```bash
+     source venv/bin/activate
+     ```
+
+2. **Install Dependencies**
+
+   - Install the required Python packages by running:
+
+     ```bash
+     pip install -r requirements.txt
+     ```
+
+3. **Open Terminal**
+   
+4. **Navigate to the root directory of the project**
+	![Terminal](images\Steps\step_1.png)
+
+5. **Run the following command:**
+   
+   ```bash
+   streamlit run app.py
+   ```
+
+6. **The UI will open automatically in your default web browser. If it doesn't, navigate to [localhost:8501](http://localhost:8501) manually.**
+
+   ![Terminal](images\Steps\step_2.png)
+
+7. **This is how the UI will look like:**
+   
+   ![UI](images\Steps\step_3.png)
+   
+   - Button to upload CSV data
+   - Button to upload the model
+   - Button to predict using the data (will appear after the model is uploaded)
+
+8. **Upload the data using the first button:**
+   
+   - Select the CSV data file
+   - Click on 'Open'
+   - 
+
+   ![UI](images\Steps\step_4.png)
+
+9. **Select the model in the same way**
+
+	![UI](images\Steps\step_5.png)
+
+10. **Wait for a while until the documents are processed. There will be a running indicator on the top left.**
+
+	![UI](images\Steps\step_6.png)
+
+11. **After the processing is done, the 'Predict' Button will appear. Click on it and wait.**
+
+	![UI](images\Steps\step_7.png)
+
+12. **Prediction is complete, and you can see the results in the new table**
+
+	![UI](images\Steps\step_8.png)
+
+13. **Click on the LinkedIn Profile, which will redirect you to the link**
+
+Feel free to reach out if you encounter any issues!
