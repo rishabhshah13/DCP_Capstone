@@ -58,7 +58,7 @@ To run this project, follow the steps below:
 3. **Open Terminal**
    
 4. **Navigate to the root directory of the project**
-	![Terminal](images\Steps\step_1.png)
+	![Terminal](images/Steps/step_1.png)
 
 5. **Run the following command:**
    
@@ -68,11 +68,11 @@ To run this project, follow the steps below:
 
 6. **The UI will open automatically in your default web browser. If it doesn't, navigate to [localhost:8501](http://localhost:8501) manually.**
 
-   ![Terminal](images\Steps\step_2.png)
+   ![Terminal](images/Steps/step_2.png)
 
 7. **This is how the UI will look like:**
    
-   ![UI](images\Steps\step_3.png)
+   ![UI](images/Steps/step_3.png)
    
    - Button to upload CSV data
    - Button to upload the model
@@ -84,23 +84,23 @@ To run this project, follow the steps below:
    - Click on 'Open'
    - 
 
-   ![UI](images\Steps\step_4.png)
+   ![UI](images/Steps/step_4.png)
 
 9. **Select the model in the same way**
 
-	![UI](images\Steps\step_5.png)
+	![UI](images\Steps/step_5.png)
 
 10. **Wait for a while until the documents are processed. There will be a running indicator on the top left.**
 
-	![UI](images\Steps\step_6.png)
+	![UI](images/Steps/step_6.png)
 
 11. **After the processing is done, the 'Predict' Button will appear. Click on it and wait.**
 
-	![UI](images\Steps\step_7.png)
+	![UI](images/Steps/step_7.png)
 
 12. **Prediction is complete, and you can see the results in the new table**
 
-	![UI](images\Steps\step_8.png)
+	![UI](images/Steps/step_8.png)
 
 13. **Click on the LinkedIn Profile, which will redirect you to the link**
 
