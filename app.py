@@ -38,9 +38,9 @@ def main():
                     if st.button('Predict'):
                         predictions_df = nnc.load_and_infer(loaded_model,df)
                         st.write("Prediction button clicked!")
-                        # st.write(predictions_df)
-                        from some_app import render_grid
-                        render_grid(predictions_df)
+                        st.write(predictions_df)
+                        #from some_app import render_grid
+                        #render_grid(predictions_df)
 
         except Exception as e:
             st.error(f"Error: {e}")

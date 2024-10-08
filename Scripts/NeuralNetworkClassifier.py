@@ -152,6 +152,7 @@ def load_and_infer(model,df):
     predictions_df = predictions_df.sort_values(by='Predicted_Relevancy', ascending=False)
 
     predictions_df = predictions_df.reset_index(drop=True)
+    print("Finished inference")
     
     return predictions_df
 
