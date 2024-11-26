@@ -4,6 +4,15 @@ import pandas as pd
 import Scripts.NeuralNetworkClassifier as nnc
 import Scripts.des_pred as des
 
+# Configure the 'Lead Linkedin Url' column as a LinkColumn
+column_config = {
+    "Lead Linkedin Url": st.column_config.LinkColumn(
+        label="LinkedIn Profile",
+        display_text="View Profile"
+    )
+}
+
+
 def main():
     """
     Main function to run the Streamlit web app.
@@ -37,10 +46,9 @@ def main():
                 if uploaded_file is not None:
                     if st.button('Predict'):
                         predictions_df = nnc.load_and_infer(loaded_model,df)
-                        st.write("Prediction button clicked!")
+                        # st.write("Prediction button clicked!")
                         # st.write(predictions_df)
-                        from some_app import render_grid
-                        render_grid(predictions_df)
+                        st.data_editor(predictions_df, column_config=column_config, hide_index=True)
 
         except Exception as e:
             st.error(f"Error: {e}")
